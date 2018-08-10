@@ -151,6 +151,7 @@ public class Details {
         String accType="",df;
         String numberAsString;
         Details sd=new Details();
+        Encryption e1=new Encryption();
 
 
         Random rand=new Random();
@@ -280,24 +281,26 @@ public class Details {
         do {
             System.out.println("Create your Password ( Password must be at least 4 characters, no more than 8 characters) : ");
             temp = sc.next();
-            do{
-                flag=v.passwordValidation(temp);
-                /*System.out.println("the password does not meet the conditions mentioned");
-                temp = sc.next();*/
-            }while(!flag);
-            System.out.println("Re-Enter your Password");
-            String temp2 = sc.next();
-            if (temp.equals(temp2)) {
-                System.out.println("Password created Successfully");
-                sd.setPassword(temp);
-                flag = true;
-            }
-            else
-            {
-                System.out.println("Password not Matched");
-                flag = false;
-            }
 
+                flag=v.passwordValidation(temp);
+                if(!flag){
+                    System.out.println("the password does not meet the conditions mentioned");
+                }
+
+                //temp = sc.next();
+                if(flag){
+                    System.out.println("Re-Enter your Password");
+                    String temp2 = sc.next();
+                    if (temp.equals(temp2)) {
+                        System.out.println("Password created Successfully");
+                        temp3=e1.encrypt(temp);
+                        sd.setPassword(temp3);
+                        flag = true;}
+                        else{
+                        System.out.println(" Password not matched");
+                        flag=false;
+                    }
+                }
         }while(!flag);
 
 

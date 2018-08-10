@@ -64,7 +64,7 @@ public class Validation {
 
     public boolean nameValidation(String str) {
         try{
-            Pattern pattern=Pattern.compile("^([A-z][A-Za-z]*\\s+[A-Za-z]*)|([A-z][A-Za-z]*).{2,45}$");
+            Pattern pattern=Pattern.compile("^[a-zA-Z][a-zA-Z-_\\.*\\s]{1,20}$");
             Matcher matcher=pattern.matcher(str);
             if(matcher.matches()){
                 return true;
@@ -104,8 +104,9 @@ public class Validation {
     }
 
 
-    public boolean passwordValidation(String str)    {
-        if (str.matches(".{4,8}$")) {
+    public boolean passwordValidation(String str) {
+        if(str.matches("^.{4,8}$")) {
+
             return true;
         }
         else return false;
