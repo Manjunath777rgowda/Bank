@@ -223,7 +223,7 @@ public class RecurringAccount {
             obj=checkReferenceNumber();
             if (obj!=null) {
                 if(DAYS.between(obj.getNextInstallment(),LocalDate.now())==31) {
-                    System.out.println("Please deposit " + obj.getInitialDeposit());
+                    System.out.println("Please deposit " + String.format("%.2f",obj.getInitialDeposit()));
                     try {
                         Scanner input = new Scanner(System.in);
                         deposit = input.nextFloat();
@@ -267,7 +267,7 @@ public class RecurringAccount {
         if(random!=null) {
             if (YEARS.between(random.getCreationDate(), LocalDate.now()) == random.getDepositPeriod()) {
                 random.interest(random);
-                System.out.println("Your Final Amount" + random.getBalance());
+                System.out.println("Your Final Amount" + String.format("%.2f",random.getBalance()));
             } else {
                 System.out.println("You can only withdraw money when RD is matured !");
                 System.out.println("Remaining installments : "+random.getInstallmentCount());
@@ -300,8 +300,8 @@ public class RecurringAccount {
             System.out.println("Your nominee              : " + random.getNominee());
             System.out.println("Relationship with nominee : " + random.getRelationship());
             System.out.println("Your RD lifetime          : " + random.getDepositPeriod());
-            System.out.println("Your initial Deposit      : " + random.getInitialDeposit());
-            System.out.println("Balance                   : " + random.getBalance());
+            System.out.println("Your initial Deposit      : " + String.format("%,2f",random.getInitialDeposit()));
+            System.out.println("Balance                   : " + String.format("%.2f",random.getBalance()));
             System.out.println("Remaining Installment     : " + random.getInstallmentCount());
             System.out.println("Your RD creation Date     : " + random.getCreationDate());
             System.out.println("-----------------------------------------------------------------");
@@ -349,9 +349,9 @@ public class RecurringAccount {
         RecurringAccount rd = checkReferenceNumber();
         if(rd!=null) {
             if (YEARS.between(rd.getCreationDate(), LocalDate.now()) != rd.getDepositPeriod()) {
-                System.out.println("Your balance is : " + rd.getBalance());
+                System.out.println("Your balance is : " + String.format("%.2f",rd.getBalance()));
                 System.out.println("To drop your rd you must pay the penalty");
-                System.out.println("The following amount will be deducted from the RD : " + rd.getBalance() * 0.1);
+                System.out.println("The following amount will be deducted from the RD : " + String.format("%.2f",rd.getBalance() * 0.1));
                 System.out.println("Do you want to continue? yes | no ");
                 Scanner input=new Scanner(System.in);
                 String choice=input.nextLine();
@@ -364,7 +364,7 @@ public class RecurringAccount {
                 {
                 rd.setBalance((float) (rd.getBalance() - rd.getBalance() * 0.1));
 
-                System.out.println("Please collect : " + rd.getBalance());
+                System.out.println("Please collect : " + String.format("%.2f",rd.getBalance()));
 
                 rd.setStatus(0);
 
@@ -378,7 +378,7 @@ public class RecurringAccount {
                     return;
                 }
             } else {
-                System.out.println("Please collect : " + rd.getBalance());
+                System.out.println("Please collect : " + String.format("%.2f",rd.getBalance()));
                 rd.setStatus(0);
                 connectJDBC con=new connectJDBC();
                 con.update(rd,rd.getReferenceNumber());
